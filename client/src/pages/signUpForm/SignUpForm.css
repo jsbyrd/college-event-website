@@ -5,15 +5,17 @@
 }
 
 body {
-  background: #9539ca;
   font-family: "Rubik", sans-serif;
 }
 
 .signup-form-container {
+  background: #9539ca;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100vw;
 }
 
 .title {
