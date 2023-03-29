@@ -18,14 +18,14 @@ body {
   width: 100vw;
 }
 
-.title {
+.signup-form-container .title {
   color: #fff;
   font-size: 50px;
   font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
   height: 20vh;
   display: flex;
   align-items: center;
-  margin: 30px 0px 30px 0px;
+  margin: 0px;
 }
 
 .signup-form {
@@ -57,7 +57,6 @@ body {
   border: 0;
   border-bottom: 1px solid #747474;
   outline: none;
-
   transition: all 0.2s;
 }
 
@@ -68,11 +67,11 @@ body {
 
 .signup-form a.link {
   display: flex;
+  align-items: center;
   justify-content: center;
   text-decoration: none;
   color: #747474;
   letter-spacing: 0.2px;
-  display: inline-block;
   margin: 20px 0px 40px 0px;
 }
 .signup-form .action {
@@ -105,4 +104,51 @@ body {
 }
 .signup-form .action button:nth-child(2):hover {
   background: #3c4d6d;
+}
+
+.signup-question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 0px 20px 0px;
+}
+
+.signup-question {
+  color: #747474;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  margin: 0px 0px 15px 0px;
+  word-spacing: 0.2px;
+}
+
+.signup-dropdown-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px 0px 20px 0px;
+}
+
+.signup-dropdown {
+  width: 50%;
+  text-align: center;
+}
+
+.signup-form .input-field-2 input {
+  font-size: 16px;
+  display: block;
+  font-family: "Rubik", sans-serif;
+  width: 100%;
+  padding: 10px 1px;
+  border: 0;
+  border-bottom: 1px solid #747474;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.signup-form .content-2 {
+  padding: 0px 35px 0px 35px;
+  margin: 0px 0px 30px 0px;
+  text-align: center;
 }
