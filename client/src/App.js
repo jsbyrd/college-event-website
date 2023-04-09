@@ -5,22 +5,28 @@ import SignUpForm from "./pages/signUpForm/SignUpForm";
 import Dashboard from "./pages/dashboard/Dashboard";
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [userID, setUserID] = useState(null);
   const navigate = useNavigate();
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<LoginForm setUser={setUser}></LoginForm>} />
+        <Route
+          path="/"
+          element={<LoginForm setUserID={setUserID}></LoginForm>}
+        />
         <Route
           path="/login"
-          element={<LoginForm setUser={setUser}></LoginForm>}
+          element={<LoginForm setUserID={setUserID}></LoginForm>}
         />
         <Route
           path="/signup"
-          element={<SignUpForm setUser={setUser}></SignUpForm>}
+          element={<SignUpForm setUserID={setUserID}></SignUpForm>}
         />
-        <Route path="/home/*" element={<Dashboard></Dashboard>} />
+        <Route
+          path="/home/*"
+          element={<Dashboard userID={userID}></Dashboard>}
+        />
       </Routes>
     </div>
   );

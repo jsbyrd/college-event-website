@@ -1,20 +1,19 @@
-import { Space } from "antd";
 import DashboardHeader from "../../components/DashboardHeader";
-import DashboardFooter from "../../components/DashboardFooter";
 import PageContent from "../../components/PageContent";
 import SideMenu from "../../components/SideMenu";
 
 import "./Dashboard.css";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const { userID } = props;
+
   return (
     <div className="dashboard">
       <DashboardHeader />
-      <Space className="sideMenuAndPageContent">
+      <div className="main-container">
         <SideMenu></SideMenu>
-        <PageContent></PageContent>
-      </Space>
-      <DashboardFooter />
+        <PageContent userID={userID}></PageContent>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Radio } from "antd";
 import axios from "axios";
 import utils from "../../utils";
@@ -8,13 +8,17 @@ import "./SignUpForm.css";
 const CreateUniversity = (props) => {
   const { universityName, setUniversityName } = props;
 
+  const handleUniversityNameChange = (e) => {
+    setUniversityName(e.target.value);
+  };
+
   return (
     <div className="content-2">
       <div className="input-field-2">
         <input
           type="text"
           value={universityName}
-          onChange={setUniversityName}
+          onChange={handleUniversityNameChange}
           placeholder="University Name"
           autoComplete="nope"
         />
@@ -31,6 +35,12 @@ const FindUniversity = (props) => {
   };
 
   if (isLoading) return null;
+  if (
+    universities === null ||
+    universities === undefined ||
+    universities.length === 0
+  )
+    return null;
 
   return (
     <div className="signup-dropdown-container">
@@ -67,8 +77,10 @@ const SignUpForm = () => {
   const [univ_id, setUnivID] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  const navigate = useNavigate();
   const baseURL = utils.baseURL;
 
+  // Fetch all names of universities
   useEffect(() => {
     const fetchUniversities = async () => {
       const allUniversities = await axios.get(`${baseURL}/api/universities`);
@@ -76,7 +88,6 @@ const SignUpForm = () => {
       setIsLoading(false);
     };
     fetchUniversities();
-    console.log(universities);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -92,19 +103,48 @@ const SignUpForm = () => {
     setPassword(e.target.value);
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted!");
 
-    // The select tag wants to be weird, so here is my solution to that
-    const new_univ_id = univ_id === null ? universities[0].univ_id : univ_id;
+    try {
+      // User creation process for ADMINS
+      if (isAdmin) {
+        const univInfo = {
+          name: universityName
+        };
 
-    console.log(email, password, new_univ_id, isAdmin);
-    // IF ADMIN, CREATE UNIVERSITY FIRST
+        // Create new university, store newly created univ_id in res.data
+        const res = await axios.post(`${baseURL}/api/universities`, univInfo);
+        const uuid = res.data;
 
-    // CREATE USER ACCOUNT
-
-    // LOG USER INTO DASHBOARD/HOME PAGE
+        const userInfo = {
+          email: email,
+          password: password,
+          isAdmin: isAdmin,
+          univ_id: uuid
+        };
+        // Now create account for super admin
+        await axios.post(`${baseURL}/api/users`, userInfo);
+      }
+      // User creation process for NONADMINS
+      else {
+        // The select tag wants to be weird, so here is my solution to that
+        const new_univ_id =
+          univ_id === null ? universities[0].univ_id : univ_id;
+        const userInfo = {
+          email: email,
+          password: password,
+          isAdmin: isAdmin,
+          univ_id: new_univ_id
+        };
+        // Create account for user
+        await axios.post(`${baseURL}/api/users`, userInfo);
+        console.log("NAVIGATING TO HOME");
+        navigate("/home/events");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
