@@ -1,8 +1,7 @@
-const usersRouter = require("express").Router();
+const rsosRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const sql = require("mssql");
 const crypto = require("crypto");
-const { query } = require("express");
 require("dotenv").config();
 
 const sqlConfig = {
@@ -21,15 +20,13 @@ const sqlConfig = {
   }
 };
 
-// Create a new user
-usersRouter.post("/", async (req, res) => {
-  const { email, password, isAdmin, univ_id } = req.body;
+rsosRouter.post("/", async (req, res) => {
+  const { userID, univID, name, description } = req.body;
   const uuid = crypto.randomUUID();
 
   try {
     await sql.connect(sqlConfig);
-    const is_super_admin = isAdmin ? 1 : 0;
-    const queryString = `INSERT INTO "User" (user_id, univ_id, password, email, is_super_admin) VALUES ('${uuid}', '${univ_id}', '${password}', '${email}', '${is_super_admin}')`;
+    const queryString = `INSERT INTO RSO (rso_id, user_id, univ_id, name, description) VALUES ('${uuid}', '${userID}', '${univID}', '${name}', '${description}')`;
     await sql.query(queryString);
     res.json(uuid);
   } catch (err) {
@@ -37,4 +34,4 @@ usersRouter.post("/", async (req, res) => {
   }
 });
 
-module.exports = usersRouter;
+module.exports = rsosRouter;

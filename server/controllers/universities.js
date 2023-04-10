@@ -1,6 +1,7 @@
 const universitiesRouter = require("express").Router();
 const bcrypt = require("bcrypt");
 const sql = require("mssql");
+const crypto = require("crypto");
 require("dotenv").config();
 
 const sqlConfig = {
@@ -19,14 +20,35 @@ const sqlConfig = {
   }
 };
 
-universitiesRouter.get("/", async (req, res) => {
+// Fetch univ_id for a given user
+universitiesRouter.get("/:userID", async (req, res) => {
+  const { userID } = req.params;
   try {
     await sql.connect(sqlConfig);
-    const result = await sql.query(`SELECT * FROM University`);
-    res.json(result.recordset);
+    const queryString = `SELECT univ_id FROM "User" U WHERE U.user_id='${userID}'`;
+    const response = await sql.query(queryString);
+    res.json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
+universitiesRouter.post("/", async (req, res) => {
+  const { name } = req.body;
+  const uuid = crypto.randomUUID();
+  console.log(uuid);
+
+  const queryString = `INSERT INTO University (univ_id, location_id, name, num_students, description) VALUES ('${uuid}', NULL, '${name}',  NULL, NULL)`;
+
+  try {
+    await sql.connect(sqlConfig);
+    await sql.query(queryString);
   } catch (err) {
     console.log(err);
   }
+
+  res.json(uuid);
 });
 
 module.exports = universitiesRouter;

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import utils from "../../utils";
+import utils from "../utils";
 
 const Event = () => {
   return <div>Hi</div>;

@@ -1,7 +1,7 @@
 const DashboardHeader = () => {
   return (
     <div className="dashboardHeader">
-      <h1>Someone's Dashboard</h1>
+      <h1>College Events</h1>
     </div>
   );
 };

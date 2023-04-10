@@ -124,7 +124,9 @@ const SignUpForm = () => {
           univ_id: uuid
         };
         // Now create account for super admin
-        await axios.post(`${baseURL}/api/users`, userInfo);
+        const response = await axios.post(`${baseURL}/api/users`, userInfo);
+        const userID = response.data;
+        sessionStorage.setItem("userID", userID);
       }
       // User creation process for NONADMINS
       else {
@@ -138,7 +140,9 @@ const SignUpForm = () => {
           univ_id: new_univ_id
         };
         // Create account for user
-        await axios.post(`${baseURL}/api/users`, userInfo);
+        const response = await axios.post(`${baseURL}/api/users`, userInfo);
+        const userID = response.data;
+        sessionStorage.setItem("userID", userID);
         console.log("NAVIGATING TO HOME");
         navigate("/home/events");
       }
