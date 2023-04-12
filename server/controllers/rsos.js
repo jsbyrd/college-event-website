@@ -20,13 +20,25 @@ const sqlConfig = {
   }
 };
 
+rsosRouter.get("/", async (req, res) => {
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT * FROM RSO R`;
+    const result = await sql.query(queryString);
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 rsosRouter.post("/", async (req, res) => {
   const { userID, univID, name, description } = req.body;
   const uuid = crypto.randomUUID();
 
   try {
     await sql.connect(sqlConfig);
-    const queryString = `INSERT INTO RSO (rso_id, user_id, univ_id, name, description) VALUES ('${uuid}', '${userID}', '${univID}', '${name}', '${description}')`;
+    const queryString = `INSERT INTO RSO (rso_id, user_id, univ_id, name, description, num_members) VALUES ('${uuid}', '${userID}', '${univID}', '${name}', '${description}', 1)`;
     await sql.query(queryString);
     res.json(uuid);
   } catch (err) {
