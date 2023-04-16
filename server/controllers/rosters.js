@@ -18,6 +18,36 @@ const sqlConfig = {
   }
 };
 
+// Get specific userID & rsoID
+rostersRouter.get("/:userID/:rsoID", async (req, res) => {
+  const { userID, rsoID } = req.params;
+
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT COUNT(*) FROM Roster R WHERE user_id='${userID}' AND rso_id='${rsoID}'`;
+    const count = await sql.query(queryString);
+    res.send(count);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
+// Get all RSOS that userID is admin of
+rostersRouter.get("/:userID/", async (req, res) => {
+  const { userID } = req.params;
+
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT rso_id FROM Roster R WHERE R.user_id='${userID}' AND R.is_admin=1`;
+    const data = await sql.query(queryString);
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 // Create a new user
 rostersRouter.post("/", async (req, res) => {
   const { userID, rsoID, isAdmin } = req.body;

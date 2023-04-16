@@ -20,6 +20,19 @@ const sqlConfig = {
   }
 };
 
+// Fetch all universities
+universitiesRouter.get("/", async (req, res) => {
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT * FROM University U`;
+    const response = await sql.query(queryString);
+    res.json(response);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 // Fetch univ_id for a given user
 universitiesRouter.get("/:userID", async (req, res) => {
   const { userID } = req.params;
@@ -37,9 +50,8 @@ universitiesRouter.get("/:userID", async (req, res) => {
 universitiesRouter.post("/", async (req, res) => {
   const { name } = req.body;
   const uuid = crypto.randomUUID();
-  console.log(uuid);
 
-  const queryString = `INSERT INTO University (univ_id, location_id, name, num_students, description) VALUES ('${uuid}', NULL, '${name}',  NULL, NULL)`;
+  const queryString = `INSERT INTO University (univ_id, location, name, num_students, description) VALUES ('${uuid}', NULL, '${name}',  NULL, NULL)`;
 
   try {
     await sql.connect(sqlConfig);

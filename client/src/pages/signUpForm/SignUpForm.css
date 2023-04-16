@@ -9,7 +9,7 @@ body {
 }
 
 .signup-form-container {
-  background: #9539ca;
+  background: whitesmoke;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,7 +19,7 @@ body {
 }
 
 .signup-form-container .title {
-  color: #fff;
+  color: rgb(27, 27, 27);
   font-size: 50px;
   font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
   height: 20vh;
@@ -34,8 +34,9 @@ body {
   margin: 0px 65px 65px 65px;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
   box-shadow: 0 2px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 }
 .signup-form h1 {
   padding: 35px 35px 0 35px;

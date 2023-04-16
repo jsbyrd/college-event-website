@@ -11,8 +11,11 @@ const JoinRso = (props) => {
   useEffect(() => {
     // Update to only show rsos within same university as user
     const fetchRsos = async () => {
-      const allRsos = await axios.get(`${baseURL}/api/rsos`);
-      console.log(allRsos);
+      const response1 = await axios.get(
+        `${baseURL}/api/universities/${userID}`
+      );
+      const univID = response1.data.recordset[0].univ_id;
+      const allRsos = await axios.get(`${baseURL}/api/rsos/univOnly/${univID}`);
       setRsos(allRsos.data.recordset);
     };
     fetchRsos();
@@ -20,10 +23,29 @@ const JoinRso = (props) => {
   }, []);
 
   const handleJoinRso = async (rsoID) => {
-    // add to roster
-    // update num_members
     try {
-      console.log("yippie");
+      // check to see if user is already part of rso
+
+      const res1 = await axios.get(`${baseURL}/api/rosters/${userID}/${rsoID}`);
+      if (res1.data.recordset[0][""] >= 1) {
+        alert("You are already a member of this RSO!");
+        return;
+      }
+
+      // add to roster
+      const rosterInfo = {
+        userID: userID,
+        rsoID: rsoID,
+        isAdmin: 0
+      };
+      await axios.post(`${baseURL}/api/rosters/`, rosterInfo);
+
+      // update num_members
+      const rsoInfo = {
+        rsoID: rsoID
+      };
+      await axios.put(`${baseURL}/api/rsos`, rsoInfo);
+      console.log("everything worked :D");
     } catch (err) {
       console.log(err);
       alert("You are already a member of this RSO!");

@@ -49,7 +49,7 @@ const FindUniversity = (props) => {
       </p>
       <select
         className="signup-dropdown"
-        defaultValue={universities[0].key}
+        defaultValue={universities[0].univ_id}
         onChange={handleUniversityNameChange}
         name="universities"
       >
@@ -84,7 +84,7 @@ const SignUpForm = () => {
   useEffect(() => {
     const fetchUniversities = async () => {
       const allUniversities = await axios.get(`${baseURL}/api/universities`);
-      setUniversities(allUniversities.data);
+      setUniversities(allUniversities.data.recordset);
       setIsLoading(false);
     };
     fetchUniversities();
@@ -127,6 +127,7 @@ const SignUpForm = () => {
         const response = await axios.post(`${baseURL}/api/users`, userInfo);
         const userID = response.data;
         sessionStorage.setItem("userID", userID);
+        navigate("/dashboard");
       }
       // User creation process for NONADMINS
       else {
@@ -143,7 +144,6 @@ const SignUpForm = () => {
         const response = await axios.post(`${baseURL}/api/users`, userInfo);
         const userID = response.data;
         sessionStorage.setItem("userID", userID);
-        console.log("NAVIGATING TO HOME");
         navigate("/home/events");
       }
     } catch (err) {

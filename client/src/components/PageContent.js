@@ -13,7 +13,7 @@ const PageContent = (props) => {
         <Route path="events" element={<EventsPage userID={userID} />} />
         <Route path="join-rso" element={<JoinRso userID={userID}></JoinRso>} />
         <Route path="create-rso" element={<CreateRso userID={userID} />} />
-        <Route path="create-event" element={<CreateEvent />} />
+        <Route path="create-event" element={<CreateEvent userID={userID} />} />
       </Routes>
     </div>
   );

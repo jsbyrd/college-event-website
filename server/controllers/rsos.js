@@ -20,10 +20,24 @@ const sqlConfig = {
   }
 };
 
-rsosRouter.get("/", async (req, res) => {
+rsosRouter.get("/univOnly/:univID", async (req, res) => {
+  const { univID } = req.params;
   try {
     await sql.connect(sqlConfig);
-    const queryString = `SELECT * FROM RSO R`;
+    const queryString = `SELECT * FROM RSO R WHERE R.univ_id='${univID}'`;
+    const result = await sql.query(queryString);
+    res.json(result);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
+rsosRouter.get("/:rsoID", async (req, res) => {
+  const { rsoID } = req.params;
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT * FROM RSO R WHERE R.rso_id='${rsoID}'`;
     const result = await sql.query(queryString);
     res.json(result);
   } catch (err) {
@@ -43,6 +57,20 @@ rsosRouter.post("/", async (req, res) => {
     res.json(uuid);
   } catch (err) {
     console.log(err);
+  }
+});
+
+rsosRouter.put("/", async (req, res) => {
+  const { rsoID } = req.body;
+
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `UPDATE RSO SET num_members=num_members+1 WHERE rso_id='${rsoID}'`;
+    await sql.query(queryString);
+    res.status(200).end();
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
   }
 });
 
