@@ -11,7 +11,7 @@ const DashboardHeader = () => {
 
   return (
     <div className="dashboardHeader">
-      <h1>College Events Home Page</h1>
+      <h1>College Events</h1>
       <button className="logout-button" onClick={handleLogout}>
         <LogoutOutlined />
         &nbsp;&nbsp;Logout

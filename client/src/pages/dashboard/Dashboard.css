@@ -49,6 +49,7 @@
 .main-container {
   display: flex;
   justify-content: center;
+  height: 100%;
 }
 
 .sideMenu {
@@ -56,6 +57,7 @@
   left: 0;
   top: 60px;
   bottom: 0px;
+  height: 100%;
   border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 

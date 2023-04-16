@@ -1,30 +1,27 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import utils from "../utils";
-
-const Event = () => {
-  return <div>Hi</div>;
-};
 
 const EventsPage = (props) => {
   const { userID } = props;
   const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const baseURL = utils.baseURL;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEvents = async () => {
       const allEvents = await axios.get(`${baseURL}/api/events`);
+      console.log(allEvents.data);
       setEvents(allEvents.data);
-      setIsLoading(false);
     };
     fetchEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleEventView = (event) => {
-    console.log(event);
+    navigate(`${event.event_id}`);
   };
 
   return (

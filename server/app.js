@@ -11,6 +11,7 @@ const universitiesRouter = require("./controllers/universities");
 const eventsRouter = require("./controllers/events");
 const rsosRouter = require("./controllers/rsos");
 const rostersRouter = require("./controllers/rosters");
+const commentsRouter = require("./controllers/comments");
 
 app.use(cors());
 app.use(express.json());
@@ -23,5 +24,6 @@ app.use("/api/universities", universitiesRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/rsos", rsosRouter);
 app.use("/api/rosters", rostersRouter);
+app.use("/api/comments", commentsRouter);
 
 module.exports = app;

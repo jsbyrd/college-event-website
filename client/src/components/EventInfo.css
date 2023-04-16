@@ -1,0 +1,100 @@
+.event-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-info-info {
+  border: 1px solid rgba(0, 0, 0);
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  width: 500px;
+}
+
+.create-comment {
+  width: 500px;
+}
+
+.event-info-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.create-comment-button {
+  font-size: 15px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Rubik", sans-serif;
+  cursor: pointer;
+  background: #e8e9ec;
+  color: #777;
+  letter-spacing: 0.2px;
+  outline: 0;
+  transition: all 0.3s;
+}
+.create-comment-button:hover {
+  font-family: "Rubik", sans-serif;
+  background: #d8d8d8;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.comment-list-item {
+  list-style-type: none;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  width: 70vw;
+  padding: 10px 20px 10px 20px;
+  margin-top: 10px;
+}
+
+.comment-list-item-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.comment-name {
+  display: inline;
+}
+
+.comment-buttons {
+  display: inline;
+}
+
+.comment-edit-button,
+.comment-delete-button {
+  margin-left: 20px;
+  font-size: 20px;
+  width: 80px;
+  height: 30px;
+  border: none;
+  padding: 3px;
+  font-family: "Rubik", sans-serif;
+  cursor: pointer;
+  background: #e8e9ec;
+  color: #777;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 0;
+  letter-spacing: 0.2px;
+  outline: 0;
+  transition: all 0.3s;
+  border-radius: 5px;
+}
+.comment-edit-button:hover,
+.comment-delete-button:hover {
+  font-family: "Rubik", sans-serif;
+  background: #d8d8d8;
+}

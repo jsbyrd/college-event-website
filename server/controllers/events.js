@@ -19,14 +19,26 @@ const sqlConfig = {
   }
 };
 
+eventsRouter.get("/:eventID", async (req, res) => {
+  const { eventID } = req.params;
+  try {
+    await sql.connect(sqlConfig);
+    queryString = `SELECT * FROM Event E WHERE E.event_id='${eventID}'`;
+    const result = await sql.query(queryString);
+    res.json(result.recordset);
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 eventsRouter.get("/", async (req, res) => {
   const { userID } = req.body;
   // CHANGE THIS LATER TO GET EVENTS SPECIFIC TO USER
   try {
     await sql.connect(sqlConfig);
-    queryString = `SELECT * FROM Event E`;
+    queryString = `SELECT DISTINCT E.event_id, E.name, E.description FROM Event E, "User" U, Roster R WHERE E.access='public' OR U.univ_id=E.univ_id OR (U.user_id='${userID}' AND E.rso_id=R.rso_id)`;
     const result = await sql.query(queryString);
-    console.log(result);
     res.json(result.recordset);
   } catch (err) {
     console.log(err);
