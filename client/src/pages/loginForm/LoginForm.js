@@ -32,10 +32,15 @@ const LoginForm = (props) => {
 
       const response = await axios.post(`${baseURL}/api/login/`, loginInfo);
       const user_id = response.data.recordset[0].user_id;
-      console.log(user_id);
       setUserID(user_id);
       sessionStorage.setItem("userID", user_id);
-      navigate("/home/events");
+      console.log(response.data.recordset[0]);
+      if (response.data.recordset[0].is_super_admin === true) {
+        console.log("this works!");
+        navigate("/dashboard");
+      } else {
+        navigate("/home/events");
+      }
     } catch (err) {
       alert("Either your username or password is incorrect, please try again");
       console.log(err);

@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import LoginForm from "./pages/loginForm/LoginForm";
 import SignUpForm from "./pages/signUpForm/SignUpForm";
 import Dashboard from "./pages/dashboard/Dashboard";
+import SuperDashboard from "./pages/superDashboard/SuperDashboard";
 
 const App = () => {
   const [userID, setUserID] = useState(null);
@@ -38,6 +39,10 @@ const App = () => {
         <Route
           path="/home/*"
           element={<Dashboard userID={userID}></Dashboard>}
+        />
+        <Route
+          path="/dashboard/*"
+          element={<SuperDashboard userID={userID} />}
         />
       </Routes>
     </div>

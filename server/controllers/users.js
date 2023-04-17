@@ -38,4 +38,17 @@ usersRouter.post("/", async (req, res) => {
   }
 });
 
+usersRouter.get("/:userID", async (req, res) => {
+  const { userID } = req.params;
+  try {
+    await sql.connect(sqlConfig);
+    const queryString = `SELECT * FROM "User" U WHERE U.user_id='${userID}'`;
+    const result = await sql.query(queryString);
+    res.json(result).end();
+  } catch (err) {
+    console.log(err);
+    res.status(404).end();
+  }
+});
+
 module.exports = usersRouter;

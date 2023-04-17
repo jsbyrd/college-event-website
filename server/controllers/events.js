@@ -37,7 +37,7 @@ eventsRouter.get("/", async (req, res) => {
   // CHANGE THIS LATER TO GET EVENTS SPECIFIC TO USER
   try {
     await sql.connect(sqlConfig);
-    queryString = `SELECT DISTINCT E.event_id, E.name, E.description FROM Event E, "User" U, Roster R WHERE E.access='public' OR U.univ_id=E.univ_id OR (U.user_id='${userID}' AND E.rso_id=R.rso_id)`;
+    queryString = `SELECT DISTINCT E.event_id, E.name, E.description FROM Event E, "User" U, Roster R WHERE E.is_approved=1 AND (E.access='public' OR U.univ_id=E.univ_id OR (U.user_id='${userID}' AND E.rso_id=R.rso_id))`;
     const result = await sql.query(queryString);
     res.json(result.recordset);
   } catch (err) {

@@ -24,7 +24,7 @@ loginRouter.post("/", async (req, res) => {
 
   try {
     await sql.connect(sqlConfig);
-    const queryString = `SELECT user_id FROM "User" WHERE email='${email}' AND password='${password}'`;
+    const queryString = `SELECT * FROM "User" WHERE email='${email}' AND password='${password}'`;
     const response = await sql.query(queryString);
     res.json(response);
   } catch (err) {

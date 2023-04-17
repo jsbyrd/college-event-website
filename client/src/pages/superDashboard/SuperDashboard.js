@@ -1,21 +1,19 @@
 import DashboardHeader from "../../components/DashboardHeader";
 import PageContent from "../../components/PageContent";
-import SideMenu from "../../components/SideMenu";
+import SuperSideMenu from "../../components/SuperSideMenu";
 
-import "./Dashboard.css";
-
-const Dashboard = (props) => {
+const SuperDashboard = (props) => {
   const { userID } = props;
 
   return (
     <div className="dashboard">
-      <DashboardHeader userID={userID}></DashboardHeader>
+      <DashboardHeader userID={userID} />
       <div className="main-container">
-        <SideMenu></SideMenu>
+        <SuperSideMenu userID={userID}></SuperSideMenu>
         <PageContent userID={userID}></PageContent>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default SuperDashboard;

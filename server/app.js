@@ -13,6 +13,7 @@ const rsosRouter = require("./controllers/rsos");
 const rostersRouter = require("./controllers/rosters");
 const viewRostersRouter = require("./controllers/viewRosters");
 const commentsRouter = require("./controllers/comments");
+const superAdminRouter = require("./controllers/superAdmin");
 
 app.use(cors());
 app.use(express.json());
@@ -25,5 +26,6 @@ app.use("/api/rsos", rsosRouter);
 app.use("/api/rosters", rostersRouter);
 app.use("/api/viewRosters", viewRostersRouter);
 app.use("/api/comments", commentsRouter);
+app.use("/api/superAdmin", superAdminRouter);
 
 module.exports = app;
