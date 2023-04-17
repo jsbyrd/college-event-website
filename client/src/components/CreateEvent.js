@@ -72,7 +72,11 @@ const CreateEvent = (props) => {
       setDate(null);
       setTime(null);
       setRsoId("");
-      alert("Event has been successfully created");
+      if (eventInfo.access === "public") {
+        alert("Event is pending approval from the super admin");
+      } else {
+        alert("Event has been successfully created");
+      }
     } catch (err) {
       alert("Error: Event overlaps with another existing event");
     }

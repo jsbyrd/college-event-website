@@ -4,6 +4,7 @@ import EventInfo from "./EventInfo";
 import JoinRso from "./JoinRso";
 import CreateRso from "./CreateRso";
 import CreateEvent from "./CreateEvent";
+import ViewRsos from "./ViewRsos";
 
 const PageContent = (props) => {
   const { userID } = props;
@@ -28,6 +29,7 @@ const PageContent = (props) => {
           path="create-event"
           element={<CreateEvent userID={userID} />}
         />
+        <Route exact path="view-rsos" element={<ViewRsos userID={userID} />} />
       </Routes>
     </div>
   );

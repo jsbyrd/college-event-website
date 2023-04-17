@@ -25,7 +25,6 @@ commentsRouter.get("/:eventID", async (req, res) => {
     await sql.connect(sqlConfig);
     queryString = `SELECT * FROM Comment C WHERE C.event_id='${eventID}'`;
     const result = await sql.query(queryString);
-    console.log(result);
     res.json(result.recordset);
   } catch (err) {
     console.log(err);
@@ -41,7 +40,6 @@ commentsRouter.post("/", async (req, res) => {
     // First get the email of the user
     queryString1 = `SELECT U.email FROM "User" U WHERE U.user_id='${userID}'`;
     const result = await sql.query(queryString1);
-    console.log(result);
     queryString = `INSERT INTO Comment (comment_id, user_id, event_id, description, email) VALUES ('${commentID}', '${userID}', '${eventID}', '${description}', '${result.recordset[0].email}')`;
     await sql.query(queryString);
     res.status(200).end();

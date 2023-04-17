@@ -144,10 +144,12 @@ const SignUpForm = () => {
         const response = await axios.post(`${baseURL}/api/users`, userInfo);
         const userID = response.data;
         sessionStorage.setItem("userID", userID);
+        console.log(userID);
         navigate("/home/events");
       }
     } catch (err) {
       console.log(err);
+      alert("Email is already registered, please use a different email");
     }
   };
 

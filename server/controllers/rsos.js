@@ -54,9 +54,10 @@ rsosRouter.post("/", async (req, res) => {
     await sql.connect(sqlConfig);
     const queryString = `INSERT INTO RSO (rso_id, user_id, univ_id, name, description, num_members) VALUES ('${uuid}', '${userID}', '${univID}', '${name}', '${description}', 1)`;
     await sql.query(queryString);
-    res.json(uuid);
+    res.json(uuid).end();
   } catch (err) {
     console.log(err);
+    res.status(404).end();
   }
 });
 

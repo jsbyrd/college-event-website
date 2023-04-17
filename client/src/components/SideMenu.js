@@ -4,6 +4,7 @@ import {
   AppstoreAddOutlined,
   CalendarOutlined,
   PlusCircleOutlined,
+  SearchOutlined,
   UsergroupAddOutlined
 } from "@ant-design/icons";
 
@@ -35,6 +36,11 @@ const SideMenu = () => {
             label: "Create Event",
             icon: <AppstoreAddOutlined />,
             key: "/home/create-event"
+          },
+          {
+            label: "View Your RSOs",
+            icon: <SearchOutlined />,
+            key: "/home/view-rsos"
           }
         ]}
       ></Menu>

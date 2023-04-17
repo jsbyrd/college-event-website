@@ -27,6 +27,7 @@ const JoinRso = (props) => {
       // check to see if user is already part of rso
 
       const res1 = await axios.get(`${baseURL}/api/rosters/${userID}/${rsoID}`);
+      console.log(res1.data.recordset);
       if (res1.data.recordset[0][""] >= 1) {
         alert("You are already a member of this RSO!");
         return;
@@ -45,7 +46,7 @@ const JoinRso = (props) => {
         rsoID: rsoID
       };
       await axios.put(`${baseURL}/api/rsos`, rsoInfo);
-      console.log("everything worked :D");
+      alert("You have been successfully added to the RSO!");
     } catch (err) {
       console.log(err);
       alert("You are already a member of this RSO!");

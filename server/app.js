@@ -11,12 +11,11 @@ const universitiesRouter = require("./controllers/universities");
 const eventsRouter = require("./controllers/events");
 const rsosRouter = require("./controllers/rsos");
 const rostersRouter = require("./controllers/rosters");
+const viewRostersRouter = require("./controllers/viewRosters");
 const commentsRouter = require("./controllers/comments");
 
 app.use(cors());
 app.use(express.json());
-
-// app.use(middleware.requestLogger);
 
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
@@ -24,6 +23,7 @@ app.use("/api/universities", universitiesRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/rsos", rsosRouter);
 app.use("/api/rosters", rostersRouter);
+app.use("/api/viewRosters", viewRostersRouter);
 app.use("/api/comments", commentsRouter);
 
 module.exports = app;

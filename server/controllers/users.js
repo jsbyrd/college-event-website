@@ -34,6 +34,7 @@ usersRouter.post("/", async (req, res) => {
     res.json(uuid);
   } catch (err) {
     console.log(err);
+    res.status(404).end();
   }
 });
 
