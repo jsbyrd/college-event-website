@@ -12,8 +12,11 @@ const EventsPage = (props) => {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const allEvents = await axios.get(`${baseURL}/api/events`);
-      console.log(allEvents.data);
+      const finalUserID =
+        userID === null ? sessionStorage.getItem("userID") : userID;
+      const allEvents = await axios.get(
+        `${baseURL}/api/getEvents/${finalUserID}`
+      );
       setEvents(allEvents.data);
     };
     fetchEvents();
@@ -32,6 +35,8 @@ const EventsPage = (props) => {
             <div className="event-list-item-top">
               <p className="event-name">
                 <strong>Event: {event.name}</strong>
+                &nbsp;
+                {`(${event.access})`}
               </p>
               <button
                 className="event-view-button"

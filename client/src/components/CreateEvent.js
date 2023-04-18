@@ -44,6 +44,16 @@ const CreateEvent = (props) => {
       );
       const univID = response1.data.recordset[0].univ_id;
 
+      if (access === "rso" && adminsRso.length === 0) {
+        alert(
+          "You cannot create an RSO event because you do not administrate any RSOs"
+        );
+        return;
+      }
+
+      const finalRsoID =
+        rsoID === "" && adminsRso.length > 0 ? adminsRso[0].rso_id : rsoID;
+
       const eventInfo = {
         name: eventName,
         univID: univID,
@@ -53,11 +63,13 @@ const CreateEvent = (props) => {
         email: email,
         phone: phone,
         access: access,
-        rsoID: access === "rso" ? rsoID : null,
+        rsoID: access === "rso" ? finalRsoID : null,
         date: date,
         time: time,
         isApproved: access === "public" ? 0 : 1
       };
+
+      console.log("rsoid:", finalRsoID);
 
       // Create new event
       await axios.post(`${baseURL}/api/events`, eventInfo);
@@ -78,7 +90,9 @@ const CreateEvent = (props) => {
         alert("Event has been successfully created");
       }
     } catch (err) {
-      alert("Error: Event overlaps with another existing event");
+      alert(
+        `Error: Event overlaps with another existing event taking place at ${location} on ${date} at ${time}`
+      );
     }
   };
 

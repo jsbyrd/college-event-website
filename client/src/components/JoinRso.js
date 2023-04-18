@@ -10,9 +10,13 @@ const JoinRso = (props) => {
 
   useEffect(() => {
     // Update to only show rsos within same university as user
+    const finalUserID =
+      userID === null || userID === undefined
+        ? sessionStorage.getItem("userID")
+        : userID;
     const fetchRsos = async () => {
       const response1 = await axios.get(
-        `${baseURL}/api/universities/${userID}`
+        `${baseURL}/api/universities/${finalUserID}`
       );
       const univID = response1.data.recordset[0].univ_id;
       const allRsos = await axios.get(`${baseURL}/api/rsos/univOnly/${univID}`);
@@ -61,6 +65,8 @@ const JoinRso = (props) => {
             <div className="rso-list-item-top">
               <p className="rso-name">
                 <strong>{rso.name}</strong>
+                &nbsp;
+                {`(Members: ${rso.num_members})`}
                 {rso.num_members >= 5 ? null : " (unofficial)"}
               </p>
               <button

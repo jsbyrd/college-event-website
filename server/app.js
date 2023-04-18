@@ -14,6 +14,7 @@ const rostersRouter = require("./controllers/rosters");
 const viewRostersRouter = require("./controllers/viewRosters");
 const commentsRouter = require("./controllers/comments");
 const superAdminRouter = require("./controllers/superAdmin");
+const getEventsRouter = require("./controllers/getEvents");
 
 app.use(cors());
 app.use(express.json());
@@ -27,5 +28,6 @@ app.use("/api/rosters", rostersRouter);
 app.use("/api/viewRosters", viewRostersRouter);
 app.use("/api/comments", commentsRouter);
 app.use("/api/superAdmin", superAdminRouter);
+app.use("/api/getEvents", getEventsRouter);
 
 module.exports = app;

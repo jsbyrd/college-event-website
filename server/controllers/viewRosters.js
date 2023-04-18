@@ -34,13 +34,11 @@ viewRostersRouter.get("/:userID", async (req, res) => {
 // Get whether or not user is admin of rso
 viewRostersRouter.get("/:userID/:rsoID/", async (req, res) => {
   const { userID, rsoID } = req.params;
-  console.log("hi");
 
   try {
     await sql.connect(sqlConfig);
     const queryString = `SELECT COUNT(*) FROM Roster R WHERE R.user_id='${userID}' AND R.rso_id='${rsoID}' AND R.is_admin=1`;
     const count = await sql.query(queryString);
-    console.log(count);
     res.json(count).end();
   } catch (err) {
     console.log(err);
@@ -50,14 +48,11 @@ viewRostersRouter.get("/:userID/:rsoID/", async (req, res) => {
 
 // Remove user from rso
 viewRostersRouter.delete("/:userID/:rsoID", async (req, res) => {
-  console.log("hi");
   const { userID, rsoID } = req.params;
   try {
     await sql.connect(sqlConfig);
     const queryString = `DELETE FROM Roster WHERE user_id='${userID}' AND rso_id='${rsoID}'`;
-    console.log(queryString);
-    const result = await sql.query(queryString);
-    console.log(result);
+    await sql.query(queryString);
     res.status(200).end();
   } catch (err) {
     console.log(err);
