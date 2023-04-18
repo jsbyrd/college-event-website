@@ -22,7 +22,7 @@ superAdminRouter.get("/:userID", async (req, res) => {
   const { userID } = req.params;
   try {
     await sql.connect(sqlConfig);
-    const queryString = `SELECT DISTINCT E.event_id, E.name, E.description FROM Event E, "User" U WHERE U.user_id='${userID}' AND E.univ_id=U.univ_id AND E.access='public'`;
+    const queryString = `SELECT DISTINCT E.event_id, E.name, E.description FROM Event E, "User" U WHERE U.user_id='${userID}' AND E.univ_id=U.univ_id AND E.access='public' AND E.is_approved=0`;
     const result = await sql.query(queryString);
     res.json(result).end();
   } catch (err) {

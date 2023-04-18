@@ -126,6 +126,7 @@ const SignUpForm = () => {
         // Now create account for super admin
         const response = await axios.post(`${baseURL}/api/users`, userInfo);
         const userID = response.data;
+        sessionStorage.removeItem("userID");
         sessionStorage.setItem("userID", userID);
         navigate("/dashboard");
       }
@@ -143,6 +144,7 @@ const SignUpForm = () => {
         // Create account for user
         const response = await axios.post(`${baseURL}/api/users`, userInfo);
         const userID = response.data;
+        sessionStorage.removeItem("userID");
         sessionStorage.setItem("userID", userID);
         console.log(userID);
         navigate("/home/events");

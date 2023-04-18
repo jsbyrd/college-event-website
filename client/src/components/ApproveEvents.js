@@ -11,7 +11,11 @@ const ApproveEvents = (props) => {
   useEffect(() => {
     // Update to only show rsos within same university as user
     const fetchRsos = async () => {
-      const response1 = await axios.get(`${baseURL}/api/superAdmin/${userID}`);
+      const finalUserID =
+        userID === null ? sessionStorage.getItem("userID") : userID;
+      const response1 = await axios.get(
+        `${baseURL}/api/superAdmin/${finalUserID}`
+      );
       setEvents(response1.data.recordset);
     };
     fetchRsos();

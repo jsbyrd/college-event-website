@@ -22,14 +22,16 @@ const CreateRso = (props) => {
     e.preventDefault();
 
     try {
+      const finalUserID =
+        userID === null ? sessionStorage.getItem("userID") : userID;
       const response1 = await axios.get(
-        `${baseURL}/api/universities/${userID}`
+        `${baseURL}/api/universities/${finalUserID}`
       );
       const univID = response1.data.recordset[0].univ_id;
       console.log(univID);
 
       const rsoInfo = {
-        userID: userID,
+        userID: finalUserID,
         univID: univID,
         name: rsoName,
         description: rsoDescription
@@ -40,7 +42,7 @@ const CreateRso = (props) => {
       const rsoID = response.data;
 
       const rosterInfo = {
-        userID: userID,
+        userID: finalUserID,
         rsoID: rsoID,
         isAdmin: 1
       };

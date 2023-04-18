@@ -24,7 +24,7 @@ rostersRouter.get("/:userID", async (req, res) => {
 
   try {
     await sql.connect(sqlConfig);
-    const queryString = `SELECT DISTINCT X.rso_id FROM Roster R, RSO X WHERE (R.user_id='${userID}' AND R.is_admin=1 AND X.num_members >= 5)`;
+    const queryString = `SELECT DISTINCT R.rso_id FROM Roster R, RSO X WHERE (R.rso_id=X.rso_id AND R.user_id='${userID}' AND R.is_admin=1 AND X.num_members >= 5)`;
     const data = await sql.query(queryString);
     res.json(data);
   } catch (err) {
@@ -37,6 +37,7 @@ rostersRouter.get("/:userID", async (req, res) => {
 rostersRouter.get("/:userID/:rsoID/", async (req, res) => {
   const { userID, rsoID } = req.params;
 
+  console.log("hello");
   try {
     await sql.connect(sqlConfig);
     const queryString = `SELECT COUNT(*) FROM Roster R WHERE user_id='${userID}' AND rso_id='${rsoID}'`;

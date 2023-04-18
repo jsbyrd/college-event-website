@@ -5,15 +5,13 @@ import axios from "axios";
 import utils from "../utils";
 
 const DashboardHeader = (props) => {
-  const { userID } = props;
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const baseURL = utils.baseURL;
 
   useEffect(() => {
     const fetchEmail = async () => {
-      const sameUserID =
-        userID === null ? sessionStorage.getItem("userID") : userID;
+      const sameUserID = sessionStorage.getItem("userID");
       const result = await axios.get(`${baseURL}/api/users/${sameUserID}`);
       setEmail(result.data.recordset[0].email);
     };

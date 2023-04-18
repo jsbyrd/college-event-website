@@ -48,7 +48,6 @@ eventsRouter.post("/", async (req, res) => {
     isApproved
   } = req.body;
   const eventID = crypto.randomUUID();
-  console.log("rsoID:", rsoID);
   try {
     await sql.connect(sqlConfig);
     const queryString = `INSERT INTO Event (event_id, univ_id, rso_id, name, description, location, access, category, date, time, email, phone, is_approved) VALUES ('${eventID}', '${univID}', ${

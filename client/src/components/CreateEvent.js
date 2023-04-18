@@ -22,7 +22,9 @@ const CreateEvent = (props) => {
 
   useEffect(() => {
     const fetchRsos = async () => {
-      const data = await axios.get(`${baseURL}/api/rosters/${userID}`);
+      const finalUserID =
+        userID === null ? sessionStorage.getItem("userID") : userID;
+      const data = await axios.get(`${baseURL}/api/rosters/${finalUserID}`);
       const allRsos = data.data.recordset;
 
       let rsoArray = [];
@@ -68,8 +70,6 @@ const CreateEvent = (props) => {
         time: time,
         isApproved: access === "public" ? 0 : 1
       };
-
-      console.log("rsoid:", finalRsoID);
 
       // Create new event
       await axios.post(`${baseURL}/api/events`, eventInfo);
