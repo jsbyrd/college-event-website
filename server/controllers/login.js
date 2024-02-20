@@ -8,6 +8,7 @@ const sqlConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
   server: process.env.SERVER,
+  port: 1433,
   pool: {
     max: 10,
     min: 0,
@@ -15,7 +16,7 @@ const sqlConfig = {
   },
   options: {
     encrypt: true, // for azure
-    trustServerCertificate: false
+    trustServerCertificate: true
   }
 };
 

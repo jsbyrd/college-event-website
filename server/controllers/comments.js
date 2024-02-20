@@ -8,6 +8,7 @@ const sqlConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
   server: process.env.SERVER,
+  port: 1433,
   pool: {
     max: 10,
     min: 0,
@@ -15,7 +16,7 @@ const sqlConfig = {
   },
   options: {
     encrypt: true, // for azure
-    trustServerCertificate: false
+    trustServerCertificate: true
   }
 };
 
@@ -38,9 +39,11 @@ commentsRouter.post("/", async (req, res) => {
   try {
     await sql.connect(sqlConfig);
     // First get the email of the user
-    queryString1 = `SELECT U.email FROM "User" U WHERE U.user_id='${userID}'`;
+    const queryString1 = `SELECT U.email FROM "User" U WHERE U.user_id='${userID}'`;
+    console.log(queryString1);
     const result = await sql.query(queryString1);
-    queryString = `INSERT INTO Comment (comment_id, user_id, event_id, description, email) VALUES ('${commentID}', '${userID}', '${eventID}', '${description}', '${result.recordset[0].email}')`;
+    const queryString = `INSERT INTO Comment (comment_id, user_id, event_id, description, email) VALUES ('${commentID}', '${userID}', '${eventID}', '${description}', '${result.recordset[0].email}')`;
+    console.log(queryString);
     await sql.query(queryString);
     res.status(200).end();
   } catch (err) {

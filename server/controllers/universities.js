@@ -9,6 +9,7 @@ const sqlConfig = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
   server: process.env.SERVER,
+  port: 1433,
   pool: {
     max: 10,
     min: 0,
@@ -16,7 +17,7 @@ const sqlConfig = {
   },
   options: {
     encrypt: true, // for azure
-    trustServerCertificate: false
+    trustServerCertificate: true
   }
 };
 
@@ -26,6 +27,7 @@ universitiesRouter.get("/", async (req, res) => {
     await sql.connect(sqlConfig);
     const queryString = `SELECT * FROM University U`;
     const response = await sql.query(queryString);
+    console.log(response);
     res.json(response);
   } catch (err) {
     console.log(err);
